@@ -22,10 +22,13 @@ public class Guitars {
 		Guitars guitars = new Guitars();
 		guitars.add(sg);
 		guitars.add(sg);
+		Instrument.dbconnect();
 		for (Guitar g : guitars.list) {
 			System.out.println("Found:" + g.brand + g.model + g.serial +g.year);
+			g.save();
 		}
-		Instrument.dbopen();
+		
+		Instrument.dbclose();
 	}
 
 }

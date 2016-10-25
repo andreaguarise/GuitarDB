@@ -1,5 +1,7 @@
 package guitardb.bbdev.org;
 
+import java.sql.*;
+
 public class Guitar extends Instrument {
 
 	String type;
@@ -14,7 +16,20 @@ public class Guitar extends Instrument {
 	
 	@Override
 	public void save() {
-		String sql = "INSERT INTO Guitars ";
+		PreparedStatement save = null;
+		String sql = "INSERT INTO Guitars SET " ;
+		sql += "type=\"" + this.type + "\"";
+		sql += ",model=\"" + this.model +"\"";
+		System.out.println(sql);
+		try {
+			save = conn.prepareStatement(sql);
+			save.executeUpdate();
+		} catch (SQLException sqe){ 
+			//sqe.printStackTrace();
+			System.out.println(sql);
+			System.out.println(sqe.getMessage());
+		}
+		
 	}
 
 	@Override

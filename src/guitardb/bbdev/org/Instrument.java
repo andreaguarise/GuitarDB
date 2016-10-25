@@ -18,8 +18,8 @@ public abstract class Instrument implements Record {
 	public static void dbconnect() {
 		try {	
 			conn =
-					DriverManager.getConnection("jdbc:mysql://dgas-broker.to.infn.it:3308/test?" +
-	                                   "user=root&password=z1b1bb0");
+					DriverManager.getConnection("jdbc:mysql://localhost:3306/Guitars?useSSL=false&" +
+	                                   "user=root&password=ccSl1nky");
 		} catch (SQLException ex) {
 	    // handle any errors
 			System.out.println("SQLException: " + ex.getMessage());
@@ -29,7 +29,13 @@ public abstract class Instrument implements Record {
 	}
 	
 	public static void dbclose() {
-		conn.close();
+		try { 
+			conn.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
 	}
 	
 	public Instrument(String brand, Integer year, String serial) {
