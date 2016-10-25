@@ -1,6 +1,9 @@
 package guitardb.bbdev.org;
 
+import java.sql.Connection;
+
 public interface Record {
+	
 	public abstract void save();
 	
 	public abstract void update();

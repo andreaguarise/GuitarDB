@@ -25,6 +25,7 @@ public class Guitars {
 		for (Guitar g : guitars.list) {
 			System.out.println("Found:" + g.brand + g.model + g.serial +g.year);
 		}
+		Instrument.dbopen();
 	}
 
 }
