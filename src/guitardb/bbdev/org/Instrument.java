@@ -38,6 +38,8 @@ public abstract class Instrument implements Record {
 		}
 	}
 	
+	public Instrument(){};
+	
 	public Instrument(String brand, Integer year, String serial) {
 		this.brand = brand;
 		this.serial = serial;
@@ -45,7 +47,6 @@ public abstract class Instrument implements Record {
 	}
 	
 	
-
 	
 	
 }

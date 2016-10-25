@@ -1,6 +1,7 @@
 package guitardb.bbdev.org;
 
 import java.sql.Connection;
+import java.util.*;
 
 public interface Record {
 	
@@ -10,7 +11,9 @@ public interface Record {
 	
 	public abstract void destroy();
 	
-	public abstract Object[] all();
+	public abstract void load();
+	
+	public static  Vector<Object> all(){return new Vector<Object>();};
 	
 	public abstract Object first();
 	

@@ -1,6 +1,7 @@
 package guitardb.bbdev.org;
 
 import java.sql.*;
+import java.util.*;
 
 public class Guitar extends Instrument {
 
@@ -8,6 +9,9 @@ public class Guitar extends Instrument {
 	String model;
 	String currentGauge;
 	String changeDate;
+	
+	public Guitar(){};
+	
 	public Guitar(String brand, Integer year, String serial, String model) {
 		super(brand, year, serial);
 		this.model = model;
@@ -25,10 +29,13 @@ public class Guitar extends Instrument {
 			save = conn.prepareStatement(sql);
 			save.executeUpdate();
 		} catch (SQLException sqe){ 
-			//sqe.printStackTrace();
 			System.out.println(sql);
 			System.out.println(sqe.getMessage());
 		}
+		
+	}
+	
+	public void load() {
 		
 	}
 
@@ -44,10 +51,32 @@ public class Guitar extends Instrument {
 		
 	}
 
-	@Override
-	public Object[] all() {
+	public static Vector<Object> all() {
 		// TODO Auto-generated method stub
-		return null;
+		Statement all = null;
+		String sql = "SELECT * from Guitars";
+		ResultSet rs = null;
+		Vector<Object> v = null;
+		try {
+			all = conn.createStatement();
+			rs = all.executeQuery(sql);
+		
+			v = new Vector<Object>();
+			while ( rs.next() )
+			{
+				Guitar buff = new Guitar(rs.getString("brand"), 
+					rs.getInt("year"),
+					rs.getString("serial"), 
+					rs.getString("model"));
+				buff.id = rs.getInt("idGuitars");
+				v.add(buff);
+			}
+		}
+		catch (SQLException sqe) {
+			System.out.println(sql);
+			System.out.println(sqe.getMessage());
+		}
+		return v;
 	}
 
 	@Override
