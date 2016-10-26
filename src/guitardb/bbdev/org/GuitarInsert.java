@@ -38,7 +38,14 @@ public class GuitarInsert extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GuitarInsert() {
+	public GuitarInsert(Guitar in) {
+		String nickBuff = "Insert nick here";
+		String brandBuff = "brand here";
+		if ( in != null )
+		{
+			System.out.println("Found:"+ in.brand);
+			brandBuff = in.brand;
+		}
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +91,7 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblNickname, gbc_lblNickname);
 		
 		txtNickname = new JTextField();
-		txtNickname.setText("NickName");
+		txtNickname.setText(nickBuff);
 		GridBagConstraints gbc_txtNickname = new GridBagConstraints();
 		gbc_txtNickname.gridwidth = 5;
 		gbc_txtNickname.insets = new Insets(0, 0, 5, 0);
@@ -103,6 +110,7 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblBrand, gbc_lblBrand);
 		
 		brandField = new JTextField();
+		brandField.setText(brandBuff);
 		GridBagConstraints gbc_brandField = new GridBagConstraints();
 		gbc_brandField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_brandField.gridwidth = 3;

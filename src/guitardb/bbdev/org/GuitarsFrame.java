@@ -28,6 +28,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.Box;
 import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GuitarsFrame extends JFrame {
 
@@ -66,6 +68,22 @@ public class GuitarsFrame extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		JList list = new JList();
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Guitar buff = (Guitar)list.getSelectedValue();
+				if (e.getClickCount() ==2)
+				{
+					System.out.println(buff.model);
+					try {
+						GuitarInsert frame = new GuitarInsert(buff);
+						frame.setVisible(true);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			}
+		});
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				Guitar buff = (Guitar)list.getSelectedValue();
@@ -108,7 +126,7 @@ public class GuitarsFrame extends JFrame {
 		btnInsertNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					GuitarInsert frame = new GuitarInsert();
+					GuitarInsert frame = new GuitarInsert(null);
 					frame.setVisible(true);
 				} catch (Exception ex) {
 					ex.printStackTrace();
