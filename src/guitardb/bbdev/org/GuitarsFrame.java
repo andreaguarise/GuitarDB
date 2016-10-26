@@ -22,6 +22,7 @@ import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.util.prefs.Preferences;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -32,6 +33,7 @@ public class GuitarsFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	static private Preferences prefs;
 	/**
 	 * Launch the application.
 	 */
@@ -39,6 +41,7 @@ public class GuitarsFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					prefs = Preferences.userNodeForPackage(Instrument.class);
 					GuitarsFrame frame = new GuitarsFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -137,6 +140,13 @@ public class GuitarsFrame extends JFrame {
 		toolBar.add(horizontalGlue);
 		
 		JButton btnConfig = new JButton("Config");
+		btnConfig.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String currentUri = prefs.get("DBURI", "");
+				String buff = JOptionPane.showInputDialog(null,"Enter DB Connection string:");
+				prefs.put("DBURI", buff);
+			}
+		});
 		toolBar.add(btnConfig);
 		
 		JToolBar toolBar_1 = new JToolBar();

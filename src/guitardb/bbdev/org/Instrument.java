@@ -11,7 +11,8 @@ public abstract class Instrument implements Record {
 	Integer pricePaid;
 	Integer year;
 	String serial;
-	static String dbUri = "jdbc:mysql://localhost:3306/Guitars?useSSL=false&" + "user=root&password=ccSl1nky";
+	static String dbUri = "";
+			//"jdbc:mysql://localhost:3306/Guitars?useSSL=false&user=root&password=ccSl1nky";
 	
 	
 	public static Connection conn = null;
