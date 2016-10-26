@@ -26,7 +26,7 @@ public class GuitarInsert extends JFrame {
 	private JTextField modelField;
 	private JTextField yearField;
 	private JTextField typeField;
-	private JTextField txtSerial;
+	private JTextField serialField;
 	private JTextField txtNickname;
 	private JTextField stringGaugeField;
 	private JTextField changeDateField;
@@ -54,8 +54,12 @@ public class GuitarInsert extends JFrame {
 				Instrument.dbconnect();
 				Guitar buff = new Guitar(brandField.getText(),
 						Integer.parseInt(yearField.getText()),
-						"",
+						serialField.getText(),
 						modelField.getText());
+				buff.nickName = txtNickname.getText();
+				buff.type = typeField.getText();
+				buff.currentGauge = stringGaugeField.getText();
+				buff.changeDate = changeDateField.getText();
 				buff.save();
 				Instrument.dbclose();
 			}
@@ -169,16 +173,16 @@ public class GuitarInsert extends JFrame {
 		gbc_lblSerial.gridy = 4;
 		panel.add(lblSerial, gbc_lblSerial);
 		
-		txtSerial = new JTextField();
-		txtSerial.setText("Serial");
-		GridBagConstraints gbc_txtSerial = new GridBagConstraints();
-		gbc_txtSerial.insets = new Insets(0, 0, 5, 0);
-		gbc_txtSerial.gridwidth = 5;
-		gbc_txtSerial.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSerial.gridx = 1;
-		gbc_txtSerial.gridy = 4;
-		panel.add(txtSerial, gbc_txtSerial);
-		txtSerial.setColumns(10);
+		serialField = new JTextField();
+		serialField.setText("Serial");
+		GridBagConstraints gbc_serialField = new GridBagConstraints();
+		gbc_serialField.insets = new Insets(0, 0, 5, 0);
+		gbc_serialField.gridwidth = 5;
+		gbc_serialField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_serialField.gridx = 1;
+		gbc_serialField.gridy = 4;
+		panel.add(serialField, gbc_serialField);
+		serialField.setColumns(10);
 		
 		JLabel lblStringGauge = new JLabel("String Gauge");
 		GridBagConstraints gbc_lblStringGauge = new GridBagConstraints();
