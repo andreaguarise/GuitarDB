@@ -16,7 +16,10 @@ import javax.swing.JToolBar;
 import javax.swing.ListCellRenderer;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -69,21 +72,30 @@ public class GuitarsFrame extends JFrame {
 		list.setCellRenderer(new GuitarListCellRenderer());
 		scrollPane.setViewportView(list);
 		
-		JToolBar toolBar = new JToolBar();
-		contentPane.add(toolBar, BorderLayout.NORTH);
+		JToolBar toolBar_2 = new JToolBar();
+		scrollPane.setColumnHeaderView(toolBar_2);
 		
-		JButton btnLoad = new JButton("Load");
-		btnLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Instrument.dbconnect();
-				Guitars result = Guitar.all();
-				list.setListData(result.list);
-				Instrument.dbclose();
-			}
-		});
-		toolBar.add(btnLoad);
+		JButton btnUpdate = new JButton("Update");
+		toolBar_2.add(btnUpdate);
 		
 		JButton btnInsertNew = new JButton("Insert New");
+		toolBar_2.add(btnInsertNew);
+		
+		Component horizontalGlue_1 = Box.createHorizontalGlue();
+		toolBar_2.add(horizontalGlue_1);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ( ! list.isSelectionEmpty() ) {
+					Guitar buff = (Guitar)list.getSelectedValue();
+					String message = "Will delete: " + buff.nickName + ". Are you sure?";
+					int response = JOptionPane.showConfirmDialog(null, message);
+					System.out.println(response);
+				}
+			}
+		});
+		toolBar_2.add(btnDelete);
 		btnInsertNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -94,19 +106,32 @@ public class GuitarsFrame extends JFrame {
 				}
 			}
 		});
-		
-		Component horizontalGlue = Box.createHorizontalGlue();
-		toolBar.add(horizontalGlue);
-		
-		JButton btnUpdate = new JButton("Update");
-		toolBar.add(btnUpdate);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Guitar buff = (Guitar)list.getSelectedValue();
 				System.out.println("Call Update on " + buff.brand + buff.model);
 			}
 		});
-		toolBar.add(btnInsertNew);	
+		
+		JToolBar toolBar = new JToolBar();
+		contentPane.add(toolBar, BorderLayout.NORTH);
+		
+		JButton btnLoad = new JButton("Refresh");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Instrument.dbconnect();
+				Guitars result = Guitar.all();
+				list.setListData(result.list);
+				Instrument.dbclose();
+			}
+		});
+		toolBar.add(btnLoad);
+		
+		Component horizontalGlue = Box.createHorizontalGlue();
+		toolBar.add(horizontalGlue);
+		
+		JButton btnConfig = new JButton("Config");
+		toolBar.add(btnConfig);
 		
 		JToolBar toolBar_1 = new JToolBar();
 		contentPane.add(toolBar_1, BorderLayout.SOUTH);
