@@ -64,10 +64,10 @@ public class GuitarInsert extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{39, 130, 42, 130, 31, 0};
-		gbl_panel.rowHeights = new int[]{26, 26, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] {45, 100, 42, 130, 31, 0};
+		gbl_panel.rowHeights = new int[]{26, 26, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblBrand = new JLabel("Brand:");
@@ -80,46 +80,48 @@ public class GuitarInsert extends JFrame {
 		
 		brandField = new JTextField();
 		GridBagConstraints gbc_brandField = new GridBagConstraints();
-		gbc_brandField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_brandField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_brandField.gridwidth = 3;
 		gbc_brandField.insets = new Insets(0, 0, 5, 5);
 		gbc_brandField.gridx = 1;
 		gbc_brandField.gridy = 0;
 		panel.add(brandField, gbc_brandField);
-		brandField.setColumns(10);
 		
 		JLabel lblModel = new JLabel("Model:");
 		GridBagConstraints gbc_lblModel = new GridBagConstraints();
 		gbc_lblModel.anchor = GridBagConstraints.WEST;
 		gbc_lblModel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblModel.gridx = 2;
-		gbc_lblModel.gridy = 0;
+		gbc_lblModel.gridx = 0;
+		gbc_lblModel.gridy = 1;
 		panel.add(lblModel, gbc_lblModel);
 		
 		modelField = new JTextField();
 		GridBagConstraints gbc_modelField = new GridBagConstraints();
-		gbc_modelField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_modelField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_modelField.gridwidth = 3;
+		gbc_modelField.anchor = GridBagConstraints.NORTH;
 		gbc_modelField.insets = new Insets(0, 0, 5, 5);
-		gbc_modelField.gridx = 3;
-		gbc_modelField.gridy = 0;
+		gbc_modelField.gridx = 1;
+		gbc_modelField.gridy = 1;
 		panel.add(modelField, gbc_modelField);
 		modelField.setColumns(10);
 		
 		JLabel lblYear = new JLabel("Year:");
 		GridBagConstraints gbc_lblYear = new GridBagConstraints();
 		gbc_lblYear.anchor = GridBagConstraints.WEST;
-		gbc_lblYear.insets = new Insets(0, 0, 5, 0);
-		gbc_lblYear.gridx = 4;
-		gbc_lblYear.gridy = 0;
+		gbc_lblYear.insets = new Insets(0, 0, 0, 5);
+		gbc_lblYear.gridx = 0;
+		gbc_lblYear.gridy = 2;
 		panel.add(lblYear, gbc_lblYear);
 		
 		yearField = new JTextField();
 		yearField.setColumns(10);
 		GridBagConstraints gbc_yearField = new GridBagConstraints();
+		gbc_yearField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_yearField.anchor = GridBagConstraints.NORTH;
 		gbc_yearField.insets = new Insets(0, 0, 0, 5);
-		gbc_yearField.gridwidth = 3;
 		gbc_yearField.gridx = 1;
-		gbc_yearField.gridy = 1;
+		gbc_yearField.gridy = 2;
 		panel.add(yearField, gbc_yearField);
 		
 	}
