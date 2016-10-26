@@ -92,6 +92,10 @@ public class GuitarsFrame extends JFrame {
 					String message = "Will delete: " + buff.nickName + ". Are you sure?";
 					int response = JOptionPane.showConfirmDialog(null, message);
 					System.out.println(response);
+					if ( response == 0 )
+					{
+						buff.destroy();
+					}
 				}
 			}
 		});

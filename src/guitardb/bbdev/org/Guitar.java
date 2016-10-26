@@ -53,7 +53,16 @@ public class Guitar extends Instrument {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+		PreparedStatement destroy = null;
+		String sql = "DELETE FROM Guitars where idGuitars=" + this.id;
+		System.out.println(sql);
+		try {
+			destroy = conn.prepareStatement(sql);
+			destroy.executeUpdate();
+		} catch (SQLException sqe){ 
+			System.out.println(sql);
+			System.out.println(sqe.getMessage());
+		}
 	}
 
 	public static Guitars all() {
