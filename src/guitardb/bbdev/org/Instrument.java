@@ -12,7 +12,7 @@ public abstract class Instrument implements Record {
 	Integer year;
 	String serial;
 	static String dbUri = "";
-			//"jdbc:mysql://localhost:3306/Guitars?useSSL=false&user=root&password=ccSl1nky";
+			//"jdbc:mysql://localhost:3306/Guitars?useSSL=false&user=root&password=cc*";
 	
 	
 	public static Connection conn = null;
