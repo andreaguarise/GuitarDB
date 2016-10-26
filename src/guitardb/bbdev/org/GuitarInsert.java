@@ -7,10 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JToolBar;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -29,6 +25,11 @@ public class GuitarInsert extends JFrame {
 	private JTextField brandField;
 	private JTextField modelField;
 	private JTextField yearField;
+	private JTextField typeField;
+	private JTextField txtSerial;
+	private JTextField txtNickname;
+	private JTextField stringGaugeField;
+	private JTextField changeDateField;
 
 	/**
 	 * Launch the application.
@@ -64,18 +65,37 @@ public class GuitarInsert extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] {45, 100, 42, 130, 31, 0};
-		gbl_panel.rowHeights = new int[]{26, 26, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] {45, 50, 50, 42, 0, 130, 0};
+		gbl_panel.rowHeights = new int[]{0, 26, 26, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
+		
+		JLabel lblNickname = new JLabel("Nickname:");
+		GridBagConstraints gbc_lblNickname = new GridBagConstraints();
+		gbc_lblNickname.anchor = GridBagConstraints.EAST;
+		gbc_lblNickname.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNickname.gridx = 0;
+		gbc_lblNickname.gridy = 0;
+		panel.add(lblNickname, gbc_lblNickname);
+		
+		txtNickname = new JTextField();
+		txtNickname.setText("NickName");
+		GridBagConstraints gbc_txtNickname = new GridBagConstraints();
+		gbc_txtNickname.gridwidth = 5;
+		gbc_txtNickname.insets = new Insets(0, 0, 5, 0);
+		gbc_txtNickname.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtNickname.gridx = 1;
+		gbc_txtNickname.gridy = 0;
+		panel.add(txtNickname, gbc_txtNickname);
+		txtNickname.setColumns(10);
 		
 		JLabel lblBrand = new JLabel("Brand:");
 		GridBagConstraints gbc_lblBrand = new GridBagConstraints();
 		gbc_lblBrand.anchor = GridBagConstraints.WEST;
 		gbc_lblBrand.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBrand.gridx = 0;
-		gbc_lblBrand.gridy = 0;
+		gbc_lblBrand.gridy = 1;
 		panel.add(lblBrand, gbc_lblBrand);
 		
 		brandField = new JTextField();
@@ -84,45 +104,115 @@ public class GuitarInsert extends JFrame {
 		gbc_brandField.gridwidth = 3;
 		gbc_brandField.insets = new Insets(0, 0, 5, 5);
 		gbc_brandField.gridx = 1;
-		gbc_brandField.gridy = 0;
+		gbc_brandField.gridy = 1;
 		panel.add(brandField, gbc_brandField);
+		
+		JLabel lblYear = new JLabel("Year:");
+		GridBagConstraints gbc_lblYear = new GridBagConstraints();
+		gbc_lblYear.anchor = GridBagConstraints.WEST;
+		gbc_lblYear.insets = new Insets(0, 0, 5, 5);
+		gbc_lblYear.gridx = 4;
+		gbc_lblYear.gridy = 1;
+		panel.add(lblYear, gbc_lblYear);
+		
+		yearField = new JTextField();
+		yearField.setColumns(10);
+		GridBagConstraints gbc_yearField = new GridBagConstraints();
+		gbc_yearField.insets = new Insets(0, 0, 5, 0);
+		gbc_yearField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_yearField.anchor = GridBagConstraints.NORTH;
+		gbc_yearField.gridx = 5;
+		gbc_yearField.gridy = 1;
+		panel.add(yearField, gbc_yearField);
 		
 		JLabel lblModel = new JLabel("Model:");
 		GridBagConstraints gbc_lblModel = new GridBagConstraints();
 		gbc_lblModel.anchor = GridBagConstraints.WEST;
 		gbc_lblModel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblModel.gridx = 0;
-		gbc_lblModel.gridy = 1;
+		gbc_lblModel.gridy = 2;
 		panel.add(lblModel, gbc_lblModel);
 		
 		modelField = new JTextField();
 		GridBagConstraints gbc_modelField = new GridBagConstraints();
 		gbc_modelField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_modelField.gridwidth = 3;
+		gbc_modelField.gridwidth = 5;
 		gbc_modelField.anchor = GridBagConstraints.NORTH;
-		gbc_modelField.insets = new Insets(0, 0, 5, 5);
+		gbc_modelField.insets = new Insets(0, 0, 5, 0);
 		gbc_modelField.gridx = 1;
-		gbc_modelField.gridy = 1;
+		gbc_modelField.gridy = 2;
 		panel.add(modelField, gbc_modelField);
 		modelField.setColumns(10);
 		
-		JLabel lblYear = new JLabel("Year:");
-		GridBagConstraints gbc_lblYear = new GridBagConstraints();
-		gbc_lblYear.anchor = GridBagConstraints.WEST;
-		gbc_lblYear.insets = new Insets(0, 0, 0, 5);
-		gbc_lblYear.gridx = 0;
-		gbc_lblYear.gridy = 2;
-		panel.add(lblYear, gbc_lblYear);
+		JLabel lblType = new JLabel("Type:");
+		GridBagConstraints gbc_lblType = new GridBagConstraints();
+		gbc_lblType.anchor = GridBagConstraints.EAST;
+		gbc_lblType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblType.gridx = 0;
+		gbc_lblType.gridy = 3;
+		panel.add(lblType, gbc_lblType);
 		
-		yearField = new JTextField();
-		yearField.setColumns(10);
-		GridBagConstraints gbc_yearField = new GridBagConstraints();
-		gbc_yearField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_yearField.anchor = GridBagConstraints.NORTH;
-		gbc_yearField.insets = new Insets(0, 0, 0, 5);
-		gbc_yearField.gridx = 1;
-		gbc_yearField.gridy = 2;
-		panel.add(yearField, gbc_yearField);
+		typeField = new JTextField();
+		GridBagConstraints gbc_typeField = new GridBagConstraints();
+		gbc_typeField.insets = new Insets(0, 0, 5, 5);
+		gbc_typeField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_typeField.gridx = 1;
+		gbc_typeField.gridy = 3;
+		panel.add(typeField, gbc_typeField);
+		typeField.setColumns(10);
+		
+		JLabel lblSerial = new JLabel("Serial");
+		GridBagConstraints gbc_lblSerial = new GridBagConstraints();
+		gbc_lblSerial.anchor = GridBagConstraints.EAST;
+		gbc_lblSerial.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSerial.gridx = 0;
+		gbc_lblSerial.gridy = 4;
+		panel.add(lblSerial, gbc_lblSerial);
+		
+		txtSerial = new JTextField();
+		txtSerial.setText("Serial");
+		GridBagConstraints gbc_txtSerial = new GridBagConstraints();
+		gbc_txtSerial.insets = new Insets(0, 0, 5, 0);
+		gbc_txtSerial.gridwidth = 5;
+		gbc_txtSerial.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSerial.gridx = 1;
+		gbc_txtSerial.gridy = 4;
+		panel.add(txtSerial, gbc_txtSerial);
+		txtSerial.setColumns(10);
+		
+		JLabel lblStringGauge = new JLabel("String Gauge");
+		GridBagConstraints gbc_lblStringGauge = new GridBagConstraints();
+		gbc_lblStringGauge.anchor = GridBagConstraints.EAST;
+		gbc_lblStringGauge.insets = new Insets(0, 0, 0, 5);
+		gbc_lblStringGauge.gridx = 0;
+		gbc_lblStringGauge.gridy = 5;
+		panel.add(lblStringGauge, gbc_lblStringGauge);
+		
+		stringGaugeField = new JTextField();
+		GridBagConstraints gbc_stringGaugeField = new GridBagConstraints();
+		gbc_stringGaugeField.gridwidth = 3;
+		gbc_stringGaugeField.insets = new Insets(0, 0, 0, 5);
+		gbc_stringGaugeField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_stringGaugeField.gridx = 1;
+		gbc_stringGaugeField.gridy = 5;
+		panel.add(stringGaugeField, gbc_stringGaugeField);
+		stringGaugeField.setColumns(10);
+		
+		JLabel lblChangedate = new JLabel("ChangeDate");
+		GridBagConstraints gbc_lblChangedate = new GridBagConstraints();
+		gbc_lblChangedate.anchor = GridBagConstraints.EAST;
+		gbc_lblChangedate.insets = new Insets(0, 0, 0, 5);
+		gbc_lblChangedate.gridx = 4;
+		gbc_lblChangedate.gridy = 5;
+		panel.add(lblChangedate, gbc_lblChangedate);
+		
+		changeDateField = new JTextField();
+		GridBagConstraints gbc_changeDateField = new GridBagConstraints();
+		gbc_changeDateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_changeDateField.gridx = 5;
+		gbc_changeDateField.gridy = 5;
+		panel.add(changeDateField, gbc_changeDateField);
+		changeDateField.setColumns(10);
 		
 	}
 }
