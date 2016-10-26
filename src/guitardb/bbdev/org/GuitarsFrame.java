@@ -66,7 +66,7 @@ public class GuitarsFrame extends JFrame {
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				Guitar buff = (Guitar)list.getSelectedValue();
-				System.out.println(buff.model);
+				//System.out.println(buff.model);
 			}
 		});
 		list.setCellRenderer(new GuitarListCellRenderer());
