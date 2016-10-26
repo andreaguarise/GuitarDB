@@ -94,7 +94,9 @@ public class GuitarsFrame extends JFrame {
 					System.out.println(response);
 					if ( response == 0 )
 					{
+						Instrument.dbconnect();
 						buff.destroy();
+						Instrument.dbclose();
 					}
 				}
 			}
