@@ -9,6 +9,7 @@ public class Guitar extends Instrument {
 	String model;
 	String currentGauge;
 	String changeDate;
+	String nickName;
 	
 	public Guitar(){};
 	
@@ -24,6 +25,10 @@ public class Guitar extends Instrument {
 		String sql = "INSERT INTO Guitars SET " ;
 		sql += "type=\"" + this.type + "\"";
 		sql += ",model=\"" + this.model +"\"";
+		sql += ",brand=\"" + this.brand +"\"";
+		sql += ",gauge=\"" + this.currentGauge +"\"";
+		sql += ",nickName=\"" + this.nickName +"\"";
+		sql += ",year=" + this.year;
 		System.out.println(sql);
 		try {
 			save = conn.prepareStatement(sql);
@@ -51,17 +56,17 @@ public class Guitar extends Instrument {
 		
 	}
 
-	public static Vector<Object> all() {
+	public static Guitars all() {
 		// TODO Auto-generated method stub
 		Statement all = null;
 		String sql = "SELECT * from Guitars";
 		ResultSet rs = null;
-		Vector<Object> v = null;
+		Guitars retBuff = null;
 		try {
 			all = conn.createStatement();
 			rs = all.executeQuery(sql);
 		
-			v = new Vector<Object>();
+			retBuff = new Guitars();
 			while ( rs.next() )
 			{
 				Guitar buff = new Guitar(rs.getString("brand"), 
@@ -69,14 +74,14 @@ public class Guitar extends Instrument {
 					rs.getString("serial"), 
 					rs.getString("model"));
 				buff.id = rs.getInt("idGuitars");
-				v.add(buff);
+				retBuff.add(buff);
 			}
 		}
 		catch (SQLException sqe) {
 			System.out.println(sql);
 			System.out.println(sqe.getMessage());
 		}
-		return v;
+		return retBuff;
 	}
 
 	@Override
@@ -86,7 +91,7 @@ public class Guitar extends Instrument {
 	}
 
 	@Override
-	public Object[] find(String key, String value) {
+	public Object find(String key, String value) {
 		// TODO Auto-generated method stub
 		return null;
 	}

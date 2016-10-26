@@ -13,9 +13,9 @@ public interface Record {
 	
 	public abstract void load();
 	
-	public static  Vector<Object> all(){return new Vector<Object>();};
+	public static  Object all(){return new Vector<Object>();};
 	
 	public abstract Object first();
 	
-	public abstract Object[] find(String key, String value);
+	public abstract Object find(String key, String value);
 }
