@@ -1,5 +1,5 @@
 package guitardb.bbdev.org;
-
+import java.util.prefs.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,15 +11,19 @@ public abstract class Instrument implements Record {
 	Integer pricePaid;
 	Integer year;
 	String serial;
+	static String dbUri = "jdbc:mysql://localhost:3306/Guitars?useSSL=false&" + "user=root&password=ccSl1nky";
+	
 	
 	public static Connection conn = null;
 	
 	
 	public static void dbconnect() {
+		Preferences prefs = Preferences.userNodeForPackage(Instrument.class);
+		dbUri = prefs.get("DBURI", "");
+		System.out.println("Connecting: " + dbUri);
 		try {	
 			conn =
-					DriverManager.getConnection("jdbc:mysql://localhost:3306/Guitars?useSSL=false&" +
-	                                   "user=root&password=ccSl1nky");
+					DriverManager.getConnection(dbUri);
 		} catch (SQLException ex) {
 	    // handle any errors
 			System.out.println("SQLException: " + ex.getMessage());
