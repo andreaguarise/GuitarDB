@@ -76,7 +76,7 @@ public class GuitarsFrame extends JFrame {
 				{
 					System.out.println(buff.model);
 					try {
-						GuitarInsert frame = new GuitarInsert(buff);
+						GuitarInsert frame = new GuitarInsert().guitar(buff).editable(false).build();
 						frame.setVisible(true);
 					} catch (Exception ex) {
 						ex.printStackTrace();
@@ -87,7 +87,6 @@ public class GuitarsFrame extends JFrame {
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				Guitar buff = (Guitar)list.getSelectedValue();
-				//System.out.println(buff.model);
 			}
 		});
 		list.setCellRenderer(new GuitarListCellRenderer());
@@ -126,7 +125,7 @@ public class GuitarsFrame extends JFrame {
 		btnInsertNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					GuitarInsert frame = new GuitarInsert(null);
+					GuitarInsert frame = new GuitarInsert().editable(true).insert().build();
 					frame.setVisible(true);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -136,7 +135,12 @@ public class GuitarsFrame extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Guitar buff = (Guitar)list.getSelectedValue();
-				System.out.println("Call Update on " + buff.brand + buff.model);
+				try {
+					GuitarInsert frame = new GuitarInsert().guitar(buff).editable(true).update().build();
+					frame.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
 		

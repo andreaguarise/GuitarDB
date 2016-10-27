@@ -30,6 +30,14 @@ public class GuitarInsert extends JFrame {
 	private JTextField txtNickname;
 	private JTextField stringGaugeField;
 	private JTextField changeDateField;
+	private JTextField priceField;
+	
+	private Guitar guitarIn;
+	
+	private Boolean editable;
+	private Boolean insert = false;
+	private Boolean update = false;
+	
 
 	/**
 	 * Launch the application.
@@ -38,14 +46,14 @@ public class GuitarInsert extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GuitarInsert(Guitar in) {
-		String nickBuff = "Insert nick here";
-		String brandBuff = "brand here";
-		if ( in != null )
-		{
-			System.out.println("Found:"+ in.brand);
-			brandBuff = in.brand;
-		}
+	
+	public GuitarInsert(){
+		System.out.println("GuitarInsert()");
+	}
+	
+	public GuitarInsert build() {
+		System.out.println("build()");
+	
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,23 +63,45 @@ public class GuitarInsert extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnInsert = new JButton("Insert");
-		btnInsert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Instrument.dbconnect();
-				Guitar buff = new Guitar(brandField.getText(),
+		if ( insert ) {
+			JButton btnInsert = new JButton("Insert");
+			btnInsert.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Instrument.dbconnect();
+					Guitar buff = new Guitar(brandField.getText(),
 						Integer.parseInt(yearField.getText()),
 						serialField.getText(),
 						modelField.getText());
-				buff.nickName = txtNickname.getText();
-				buff.type = typeField.getText();
-				buff.currentGauge = stringGaugeField.getText();
-				buff.changeDate = changeDateField.getText();
-				buff.save();
-				Instrument.dbclose();
-			}
-		});
-		toolBar.add(btnInsert);
+					buff.nickName = txtNickname.getText();
+					buff.type = typeField.getText();
+					buff.currentGauge = stringGaugeField.getText();
+					buff.changeDate = changeDateField.getText();
+					buff.save();
+					Instrument.dbclose();
+				}
+			});
+			toolBar.add(btnInsert);
+		}
+		if ( update ) {
+			JButton btnInsert = new JButton("Update");
+			btnInsert.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Instrument.dbconnect();
+					Guitar buff = new Guitar(brandField.getText(),
+						Integer.parseInt(yearField.getText()),
+						serialField.getText(),
+						modelField.getText());
+					buff.id = guitarIn.id;//use guitarIn for the key id
+					buff.nickName = txtNickname.getText();
+					buff.type = typeField.getText();
+					buff.currentGauge = stringGaugeField.getText();
+					buff.changeDate = changeDateField.getText();
+					buff.update();
+					Instrument.dbclose();
+				}
+			});
+			toolBar.add(btnInsert);
+		}
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -91,7 +121,9 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblNickname, gbc_lblNickname);
 		
 		txtNickname = new JTextField();
-		txtNickname.setText(nickBuff);
+		if (editable != null ) txtNickname.setEditable(editable);
+		//System.out.println("old nick:" + guitarIn.nickName);
+		if (guitarIn != null ) txtNickname.setText(guitarIn.nickName);
 		GridBagConstraints gbc_txtNickname = new GridBagConstraints();
 		gbc_txtNickname.gridwidth = 5;
 		gbc_txtNickname.insets = new Insets(0, 0, 5, 0);
@@ -110,7 +142,8 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblBrand, gbc_lblBrand);
 		
 		brandField = new JTextField();
-		brandField.setText(brandBuff);
+		if (editable != null ) brandField.setEditable(editable);
+		if (guitarIn != null ) brandField.setText(guitarIn.brand);
 		GridBagConstraints gbc_brandField = new GridBagConstraints();
 		gbc_brandField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_brandField.gridwidth = 3;
@@ -128,7 +161,9 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblYear, gbc_lblYear);
 		
 		yearField = new JTextField();
+		if (editable != null ) yearField.setEditable(editable);
 		yearField.setColumns(10);
+		if (guitarIn != null ) yearField.setText(Integer.toString(guitarIn.year));
 		GridBagConstraints gbc_yearField = new GridBagConstraints();
 		gbc_yearField.insets = new Insets(0, 0, 5, 0);
 		gbc_yearField.fill = GridBagConstraints.HORIZONTAL;
@@ -146,6 +181,8 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblModel, gbc_lblModel);
 		
 		modelField = new JTextField();
+		if (editable != null ) modelField.setEditable(editable);
+		if (guitarIn != null ) modelField.setText(guitarIn.model);
 		GridBagConstraints gbc_modelField = new GridBagConstraints();
 		gbc_modelField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_modelField.gridwidth = 5;
@@ -165,13 +202,35 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblType, gbc_lblType);
 		
 		typeField = new JTextField();
+		if (editable != null ) typeField.setEditable(editable);
+		if (guitarIn != null ) typeField.setText(guitarIn.type);
 		GridBagConstraints gbc_typeField = new GridBagConstraints();
+		gbc_typeField.gridwidth = 2;
 		gbc_typeField.insets = new Insets(0, 0, 5, 5);
 		gbc_typeField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_typeField.gridx = 1;
 		gbc_typeField.gridy = 3;
 		panel.add(typeField, gbc_typeField);
 		typeField.setColumns(10);
+		
+		JLabel lblPrice = new JLabel("Price:");
+		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
+		gbc_lblPrice.anchor = GridBagConstraints.EAST;
+		gbc_lblPrice.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrice.gridx = 4;
+		gbc_lblPrice.gridy = 3;
+		panel.add(lblPrice, gbc_lblPrice);
+		
+		priceField = new JTextField();
+		if (editable != null ) priceField.setEditable(editable);
+		if (guitarIn != null ) priceField.setText(Integer.toString(guitarIn.pricePaid));
+		GridBagConstraints gbc_priceField = new GridBagConstraints();
+		gbc_priceField.insets = new Insets(0, 0, 5, 0);
+		gbc_priceField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_priceField.gridx = 5;
+		gbc_priceField.gridy = 3;
+		panel.add(priceField, gbc_priceField);
+		priceField.setColumns(10);
 		
 		JLabel lblSerial = new JLabel("Serial");
 		GridBagConstraints gbc_lblSerial = new GridBagConstraints();
@@ -182,7 +241,8 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblSerial, gbc_lblSerial);
 		
 		serialField = new JTextField();
-		serialField.setText("Serial");
+		if (editable != null ) serialField.setEditable(editable);
+		if (guitarIn != null ) serialField.setText(guitarIn.serial);
 		GridBagConstraints gbc_serialField = new GridBagConstraints();
 		gbc_serialField.insets = new Insets(0, 0, 5, 0);
 		gbc_serialField.gridwidth = 5;
@@ -201,6 +261,8 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblStringGauge, gbc_lblStringGauge);
 		
 		stringGaugeField = new JTextField();
+		if (editable != null ) stringGaugeField.setEditable(editable);
+		if (guitarIn != null ) stringGaugeField.setText(guitarIn.serial);
 		GridBagConstraints gbc_stringGaugeField = new GridBagConstraints();
 		gbc_stringGaugeField.gridwidth = 3;
 		gbc_stringGaugeField.insets = new Insets(0, 0, 0, 5);
@@ -219,12 +281,44 @@ public class GuitarInsert extends JFrame {
 		panel.add(lblChangedate, gbc_lblChangedate);
 		
 		changeDateField = new JTextField();
+		if (editable != null ) changeDateField.setEditable(editable);
+		if (guitarIn != null ) changeDateField.setText(guitarIn.serial);
 		GridBagConstraints gbc_changeDateField = new GridBagConstraints();
 		gbc_changeDateField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_changeDateField.gridx = 5;
 		gbc_changeDateField.gridy = 5;
 		panel.add(changeDateField, gbc_changeDateField);
 		changeDateField.setColumns(10);
-		
+		return this;
+	}
+	
+	//Methods to implement the Builder Design Pattern 
+	//use as:
+	//Guitar buff = (Guitar)list.getSelectedValue();
+	//GuitarInsert frame = new GuitarInsert().guitar(buff).editable(false);
+	public GuitarInsert editable(Boolean editable)
+	{
+		System.out.println("editable()");
+		this.editable=editable;
+		return this;
+	}
+	
+	public GuitarInsert insert()
+	{
+		this.insert = true;
+		return this;
+	}
+	
+	public GuitarInsert update()
+	{
+		this.update = true;
+		return this;
+	}
+	
+	public GuitarInsert guitar(Guitar in)
+	{
+		System.out.println("guitar()");
+		this.guitarIn = in;		
+		return this;
 	}
 }

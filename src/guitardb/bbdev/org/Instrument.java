@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 public abstract class Instrument implements Record {
 	Integer id;
-	String brand;
-	Integer pricePaid;
-	Integer year;
-	String serial;
+	String brand = "";
+	Integer pricePaid = 0;
+	Integer year = 1975;
+	String serial = "";
 	static String dbUri = "";
 			//"jdbc:mysql://localhost:3306/Guitars?useSSL=false&user=root&password=cc*";
 	

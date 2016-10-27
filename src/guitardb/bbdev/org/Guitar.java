@@ -5,11 +5,11 @@ import java.util.*;
 
 public class Guitar extends Instrument {
 
-	String type;
-	String model;
-	String currentGauge;
-	String changeDate;
-	String nickName;
+	String type = "";
+	String model = "";
+	String currentGauge = "";
+	String changeDate = "";
+	String nickName ="";
 	
 	public Guitar(){};
 	
@@ -83,6 +83,10 @@ public class Guitar extends Instrument {
 					rs.getString("serial"), 
 					rs.getString("model"));
 				buff.id = rs.getInt("idGuitars");
+				buff.changeDate = rs.getString("changeDate");
+				buff.currentGauge = rs.getString("gauge");
+				buff.nickName = rs.getString("nickName");
+				buff.pricePaid = rs.getInt("pricePaid");
 				retBuff.add(buff);
 			}
 		}
