@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -289,6 +290,18 @@ public class GuitarInsert extends JFrame {
 		gbc_changeDateField.gridy = 5;
 		panel.add(changeDateField, gbc_changeDateField);
 		changeDateField.setColumns(10);
+		changeDateField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ( !changeDateField.getText().isEmpty()) {
+					Boolean valid = DateParser.isValidFormat("yyyy/MM/dd", changeDateField.getText());
+					if (!valid ) {
+						//System.out.println("date not valid:" + changeDateField.getText() );
+						JOptionPane.showMessageDialog(contentPane, "Date must be in format yyyy/mm/dd");
+						changeDateField.setText("");
+					}
+				}
+			}
+		});
 		return this;
 	}
 	
