@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -26,7 +27,7 @@ public class GuitarInsert extends JFrame {
 	private JTextField brandField;
 	private JTextField modelField;
 	private JTextField yearField;
-	private JTextField typeField;
+	private JList typeField;
 	private JTextField serialField;
 	private JTextField txtNickname;
 	private JTextField stringGaugeField;
@@ -74,9 +75,10 @@ public class GuitarInsert extends JFrame {
 						serialField.getText(),
 						modelField.getText());
 					buff.nickName = txtNickname.getText();
-					buff.type = typeField.getText();
+					buff.type = (String)typeField.getSelectedValue();
 					buff.currentGauge = stringGaugeField.getText();
 					buff.changeDate = changeDateField.getText();
+					buff.pricePaid = Integer.parseInt(priceField.getText());
 					buff.save();
 					Instrument.dbclose();
 				}
@@ -94,9 +96,10 @@ public class GuitarInsert extends JFrame {
 						modelField.getText());
 					buff.id = guitarIn.id;//use guitarIn for the key id
 					buff.nickName = txtNickname.getText();
-					buff.type = typeField.getText();
+					buff.type = (String)typeField.getSelectedValue();
 					buff.currentGauge = stringGaugeField.getText();
 					buff.changeDate = changeDateField.getText();
+					buff.pricePaid = Integer.parseInt(priceField.getText());
 					buff.update();
 					Instrument.dbclose();
 				}
@@ -202,6 +205,7 @@ public class GuitarInsert extends JFrame {
 		gbc_lblType.gridy = 3;
 		panel.add(lblType, gbc_lblType);
 		
+		/*
 		typeField = new JTextField();
 		if (editable != null ) typeField.setEditable(editable);
 		if (guitarIn != null ) typeField.setText(guitarIn.type);
@@ -213,6 +217,19 @@ public class GuitarInsert extends JFrame {
 		gbc_typeField.gridy = 3;
 		panel.add(typeField, gbc_typeField);
 		typeField.setColumns(10);
+		*/
+		
+		typeField = new JList(Guitar.types);
+		if (editable != null ) typeField.setEnabled(editable);
+		System.out.println(guitarIn.type);
+		if (guitarIn != null ) typeField.setSelectedValue(guitarIn.type, false);
+		GridBagConstraints gbc_typeField = new GridBagConstraints();
+		gbc_typeField.gridwidth = 2;
+		gbc_typeField.insets = new Insets(0, 0, 5, 5);
+		gbc_typeField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_typeField.gridx = 1;
+		gbc_typeField.gridy = 3;
+		panel.add(typeField, gbc_typeField);
 		
 		JLabel lblPrice = new JLabel("Price:");
 		GridBagConstraints gbc_lblPrice = new GridBagConstraints();

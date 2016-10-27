@@ -11,6 +11,8 @@ public class Guitar extends Instrument {
 	String changeDate = "";
 	String nickName ="";
 	
+	static String[] types = {"Electric","Acoustic","Hollow","SemiHollow"};
+	
 	public Guitar(){};
 	
 	public Guitar(String brand, Integer year, String serial, String model) {
@@ -29,13 +31,12 @@ public class Guitar extends Instrument {
 		sql += ",gauge=\"" + this.currentGauge +"\"";
 		sql += ",nickName=\"" + this.nickName +"\"";
 		sql += ",serial=\"" + this.serial +"\"";
-		sql += ",changeDate=\"" + this.changeDate +"\"";
+		if (!this.changeDate.isEmpty()) sql += ",changeDate=\"" + this.changeDate +"\"";
 		sql += ",year=" + this.year;
-		sql += " WHERE idGuitars=" + this.id;
 		System.out.println(sql);
 		try {
 			save = conn.prepareStatement(sql);
-			save.executeUpdate();
+			save.executeUpdate();	
 		} catch (SQLException sqe){ 
 			System.out.println(sql);
 			System.out.println(sqe.getMessage());
@@ -58,7 +59,7 @@ public class Guitar extends Instrument {
 		sql += ",gauge=\"" + this.currentGauge +"\"";
 		sql += ",nickName=\"" + this.nickName +"\"";
 		sql += ",serial=\"" + this.serial +"\"";
-		sql += ",changeDate=\"" + this.changeDate +"\"";
+		if (!this.changeDate.isEmpty()) sql += ",changeDate=\"" + this.changeDate +"\"";
 		sql += ",year=" + this.year;
 		sql += ",pricePaid=" + this.pricePaid;
 		sql += " WHERE idGuitars=" + this.id;
@@ -105,6 +106,7 @@ public class Guitar extends Instrument {
 					rs.getString("serial"), 
 					rs.getString("model"));
 				buff.id = rs.getInt("idGuitars");
+				buff.type = rs.getString("type");
 				buff.changeDate = rs.getString("changeDate");
 				buff.currentGauge = rs.getString("gauge");
 				buff.nickName = rs.getString("nickName");
