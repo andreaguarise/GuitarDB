@@ -262,7 +262,7 @@ public class GuitarInsert extends JFrame {
 		
 		stringGaugeField = new JTextField();
 		if (editable != null ) stringGaugeField.setEditable(editable);
-		if (guitarIn != null ) stringGaugeField.setText(guitarIn.serial);
+		if (guitarIn != null ) stringGaugeField.setText(guitarIn.currentGauge);
 		GridBagConstraints gbc_stringGaugeField = new GridBagConstraints();
 		gbc_stringGaugeField.gridwidth = 3;
 		gbc_stringGaugeField.insets = new Insets(0, 0, 0, 5);
@@ -282,7 +282,7 @@ public class GuitarInsert extends JFrame {
 		
 		changeDateField = new JTextField();
 		if (editable != null ) changeDateField.setEditable(editable);
-		if (guitarIn != null ) changeDateField.setText(guitarIn.serial);
+		if (guitarIn != null ) changeDateField.setText(guitarIn.changeDate);
 		GridBagConstraints gbc_changeDateField = new GridBagConstraints();
 		gbc_changeDateField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_changeDateField.gridx = 5;

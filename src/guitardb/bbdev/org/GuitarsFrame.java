@@ -178,6 +178,15 @@ public class GuitarsFrame extends JFrame {
 		toolBar_1.add(lblSearch);
 		
 		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Calling search on" + textField.getText());
+				Instrument.dbconnect();
+				Guitars result = Guitar.find("nickName",textField.getText());
+				list.setListData(result.list);
+				Instrument.dbclose();
+			}
+		});
 		toolBar_1.add(textField);
 		textField.setColumns(10);
 	}

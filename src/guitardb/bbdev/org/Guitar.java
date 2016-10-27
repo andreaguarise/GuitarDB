@@ -28,7 +28,10 @@ public class Guitar extends Instrument {
 		sql += ",brand=\"" + this.brand +"\"";
 		sql += ",gauge=\"" + this.currentGauge +"\"";
 		sql += ",nickName=\"" + this.nickName +"\"";
+		sql += ",serial=\"" + this.serial +"\"";
+		sql += ",changeDate=\"" + this.changeDate +"\"";
 		sql += ",year=" + this.year;
+		sql += " WHERE idGuitars=" + this.id;
 		System.out.println(sql);
 		try {
 			save = conn.prepareStatement(sql);
@@ -47,7 +50,26 @@ public class Guitar extends Instrument {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+		PreparedStatement save = null;
+		String sql = "UPDATE Guitars SET " ;
+		sql += "type=\"" + this.type + "\"";
+		sql += ",model=\"" + this.model +"\"";
+		sql += ",brand=\"" + this.brand +"\"";
+		sql += ",gauge=\"" + this.currentGauge +"\"";
+		sql += ",nickName=\"" + this.nickName +"\"";
+		sql += ",serial=\"" + this.serial +"\"";
+		sql += ",changeDate=\"" + this.changeDate +"\"";
+		sql += ",year=" + this.year;
+		sql += ",pricePaid=" + this.pricePaid;
+		sql += " WHERE idGuitars=" + this.id;
+		System.out.println(sql);
+		try {
+			save = conn.prepareStatement(sql);
+			save.executeUpdate();
+		} catch (SQLException sqe){ 
+			System.out.println(sql);
+			System.out.println(sqe.getMessage());
+		}
 	}
 
 	@Override
@@ -64,7 +86,7 @@ public class Guitar extends Instrument {
 			System.out.println(sqe.getMessage());
 		}
 	}
-
+	
 	public static Guitars all() {
 		// TODO Auto-generated method stub
 		Statement all = null;
@@ -103,10 +125,36 @@ public class Guitar extends Instrument {
 		return null;
 	}
 
-	@Override
-	public Object find(String key, String value) {
+	public static Guitars find(String key, String value) {
 		// TODO Auto-generated method stub
-		return null;
+		Statement all = null;
+		String sql = "SELECT * from Guitars WHERE " + key + " LIKE \"%" + value + "%\"";
+		ResultSet rs = null;
+		Guitars retBuff = null;
+		try {
+			all = conn.createStatement();
+			rs = all.executeQuery(sql);
+		
+			retBuff = new Guitars();
+			while ( rs.next() )
+			{
+				Guitar buff = new Guitar(rs.getString("brand"), 
+					rs.getInt("year"),
+					rs.getString("serial"), 
+					rs.getString("model"));
+				buff.id = rs.getInt("idGuitars");
+				buff.changeDate = rs.getString("changeDate");
+				buff.currentGauge = rs.getString("gauge");
+				buff.nickName = rs.getString("nickName");
+				buff.pricePaid = rs.getInt("pricePaid");
+				retBuff.add(buff);
+			}
+		}
+		catch (SQLException sqe) {
+			System.out.println(sql);
+			System.out.println(sqe.getMessage());
+		}
+		return retBuff;
 	}
 	
 	

@@ -17,5 +17,5 @@ public interface Record {
 	
 	public abstract Object first();
 	
-	public abstract Object find(String key, String value);
+	public static Object find(String key, String value){return new Vector<Object>();};
 }
